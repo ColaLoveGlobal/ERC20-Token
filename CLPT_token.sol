@@ -312,9 +312,9 @@ pragma solidity ^0.4.24;
     }
   }
   /**
-   * @title RPHToken Token
+   * @title CLPT Token
    *
-   * @dev Implementation of RPHToken Token based on the basic standard token.
+   * @dev Implementation of CLPT Token based on the basic standard token.
    */
   contract CappedToken is PausableToken {
       uint256 public cap;
@@ -349,7 +349,7 @@ pragma solidity ^0.4.24;
       }
   }
 
-  contract TronColaPointToken is ParameterizedToken {
+  contract EthColaPointToken is ParameterizedToken {
       address private _lock_clpt_addr; // account for reserve
       string public version = '1.0.0';
 
@@ -376,7 +376,7 @@ pragma solidity ^0.4.24;
           return _lock_clpt_addr;
       }
 
-      // heco token -> CLPT
+      // Eth token -> CLPT
       function depositTo(uint256 _value, string clptAddr) public returns (bool) {
           require(bytes(clptAddr).length <= 64);
           require(_lock_clpt_addr != address(0));
@@ -387,7 +387,7 @@ pragma solidity ^0.4.24;
           return true;
       }
 
-      // CLPT -> tron token
+      // CLPT -> Eth token
       // txHash -> tx hash on ColaPointChain
       function withdrawTo(
           address _to,
@@ -412,6 +412,6 @@ pragma solidity ^0.4.24;
           _lock_clpt_addr = address(0);
       }
   }
-  contract ColaPointToken is TronColaPointToken {
-      constructor() public TronColaPointToken("ColaPoint", "CLPT", 18, 2000000000) {}
+  contract ColaPointToken is EthColaPointToken {
+      constructor() public EthColaPointToken("ColaPoint", "CLPT", 18, 2000000000) {}
   }
